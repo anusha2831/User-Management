@@ -1,0 +1,40 @@
+<a [routerLink]="['/users']" class="btn btn-primary bottom-margin">Go Back</a>
+<form name="userForm" novalidate (ngSubmit)="addUser()" #userForm="ngForm">
+    <div class="form-group">
+        <label for="userFirstName">First  Name</label>
+        <input type="text" class="form-control" id="userFirstName" placeholder="Enter First Name" name="userFirstName" required minlength="4" #userFirstName="ngModel" [(ngModel)]="user.firstName">
+        <div *ngIf="userFirstName.errors && (userFirstName.dirty || userFirstName.touched)" class="error">
+            <p [hidden]="!userFirstName.errors.required">First Name is required</p>
+            <p [hidden]="!userFirstName.errors.minlength">First Name must be 4char long</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userLastName">Last Name</label>
+        <input type="email" class="form-control" id="userLastName" placeholder="Enter Last Name" name="userLastName" [(ngModel)]="user.lastName" required minlength="4" #userLastName="ngModel">
+        <div *ngIf="userLastName.errors && (userLastName.dirty || userLastName.touched)" class="error">
+            <p [hidden]="!userLastName.errors.required">Last Name is required</p>
+            <p [hidden]="!userLastName.errors.minlength">Last Name must be 4char long</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userEmail">Email address</label>
+        <input type="email" class="form-control" id="userEmail" placeholder="Enter email" email="userEmail" name="email" required [(ngModel)]="user.email" #userEmail="ngModel">
+        <div *ngIf="userEmail.errors && (userEmail.dirty || userEmail.touched)" class="error">
+            <p [hidden]="!userEmail.errors.required">An email is required</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputState">State</label>
+        <select id="inputState" class="form-control" name="userState" [(ngModel)]="user.address.state" required #userState="ngModel">
+          <option selected value="chooseState">Choose a state...</option>
+          <option value = "CA">California</option>
+          <option value = "AZ">Arizona</option>
+          <option value = "TX">Texas</option>
+        </select>
+        <div *ngIf="userState.errors && (userState.dirty || userState.touched)" class="error">
+            <p [hidden]="!userState.errors.required">State is required</p>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>
+</form>
